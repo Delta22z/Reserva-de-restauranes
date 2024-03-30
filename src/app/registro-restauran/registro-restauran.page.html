@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registro Restaurante</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Nombre</ion-label>
+    <ion-input type="text" [(ngModel)]="registroRestauranData.nombre"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Nombre del restaurante</ion-label>
+    <ion-input type="text" [(ngModel)]="registroRestauranData.nombreRestaurante"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Teléfono del restaurante</ion-label>
+    <ion-input type="text" [(ngModel)]="registroRestauranData.telefono"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Dirección del restaurante</ion-label>
+    <ion-input type="text" [(ngModel)]="registroRestauranData.direccion"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Correo Electrónico</ion-label>
+    <ion-input type="email" [(ngModel)]="registroRestauranData.correo"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Contraseña</ion-label>
+    <ion-input type="password" [(ngModel)]="registroRestauranData.contrasena"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Confirmar contraseña</ion-label>
+    <ion-input type="password" [(ngModel)]="confirmarContrasena"></ion-input>
+  </ion-item>
+  <ion-item *ngFor="let mesa of registroRestauranData.mesas; let i = index">
+    <ion-label position="floating">Número de mesa {{i + 1}}</ion-label>
+    <ion-input type="text" [(ngModel)]="mesa.nombre"></ion-input>
+    <ion-label position="floating">Cantidad de sillas</ion-label>
+    <ion-input type="number" [(ngModel)]="mesa.sillas"></ion-input>
+    <ion-segment [(ngModel)]="mesa.reservada" (ionChange)="onSegmentChange($event, mesa)">
+      <ion-segment-button value="disponible">Disponible</ion-segment-button>
+      <ion-segment-button value="reservada">Reservada</ion-segment-button>
+    </ion-segment>
+    <ion-item *ngIf="mesa.reservada === 'reservada'">
+      <ion-label position="floating">Fecha de reserva</ion-label>
+      <ion-input type="date" [(ngModel)]="mesa.fechaReserva"></ion-input>
+      <ion-label position="floating">Hora de reserva</ion-label>
+      <ion-input type="time" [(ngModel)]="mesa.horaReserva"></ion-input>
+    </ion-item>
+  </ion-item>
+  <ion-button expand="full" (click)="agregarMesa()">Agregar Mesa</ion-button>
+  <ion-button expand="full" (click)="registerRestauran()">Registrarse como restaurante</ion-button>
+  <ion-button expand="full" (click)="cancelarRegistro()">Cancelar</ion-button>
+</ion-content>
