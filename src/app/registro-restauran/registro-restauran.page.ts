@@ -12,14 +12,14 @@ export interface UsuarioRestaurante {
   mesas: Mesa[];
 }
 
-interface Mesa {
+export interface Mesa {
   nombre: string;
   sillas: number;
   reservada: 'disponible' | 'reservada';
   fechaReserva?: string;
   horaReserva?: string;
+  nombreReserva?: string; // Agrega la propiedad nombreReserva
 }
-
 @Component({
   selector: 'app-registro-restauran',
   templateUrl: './registro-restauran.page.html',
@@ -36,6 +36,7 @@ export class RegistroRestauranPage {
     mesas: []
   };
   confirmarContrasena: string = '';
+  totalMesas: number = 5; // Establecer un valor predeterminado mínimo de 5 mesas
 
   constructor(
     private navCtrl: NavController,
@@ -44,28 +45,40 @@ export class RegistroRestauranPage {
   ) {}
 
   async registerRestauran() {
+    // Validar campos y contraseña
     if (this.registroRestauranData.contrasena !== this.confirmarContrasena) {
       this.presentToast('Las contraseñas no coinciden', 'danger');
       return;
     }
 
+    // Verificar que se hayan ingresado al menos 5 mesas
+    if (this.totalMesas < 5) {
+      this.presentToast('Debe ingresar al menos 5 mesas', 'danger');
+      return;
+    }
+
+    // Agregar mesas al objeto registroRestauranData
+    this.registroRestauranData.mesas = [];
+    for (let i = 0; i < this.totalMesas; i++) {
+      this.registroRestauranData.mesas.push({
+        nombre: `Mesa ${i + 1}`,
+        sillas: 4, // Puedes establecer un valor predeterminado aquí
+        reservada: 'disponible'
+      });
+    }
+
+    // Guardar datos en almacenamiento
     let restaurantes: UsuarioRestaurante[] = await this.storage.get('restaurantes') || [];
     restaurantes.push(this.registroRestauranData);
     await this.storage.set('restaurantes', restaurantes);
+
+    // Mostrar mensaje de éxito y navegar a otra página
     this.presentToast('Registro exitoso', 'success');
     this.navCtrl.navigateForward('/login-restauran');
   }
 
-  agregarMesa() {
-    const numeroMesa = this.registroRestauranData.mesas.length + 1;
-    this.registroRestauranData.mesas.push({
-      nombre: `Mesa ${numeroMesa}`,
-      sillas: 4,
-      reservada: 'disponible'
-    });
-  }
-
   cancelarRegistro() {
+    // Navegar hacia atrás o a otra página
     this.navCtrl.navigateBack('/login-restauran');
   }
 
@@ -76,17 +89,5 @@ export class RegistroRestauranPage {
       color: color,
     });
     toast.present();
-  }
-
-  onSegmentChange(event: CustomEvent, mesa: Mesa) {
-    if (event.detail.value === 'disponible') {
-      mesa.reservada = 'disponible';
-      mesa.fechaReserva = undefined;
-      mesa.horaReserva = undefined;
-    } else {
-      mesa.reservada = 'reservada';
-      mesa.fechaReserva = '';
-      mesa.horaReserva = '';
-    }    
   }
 }

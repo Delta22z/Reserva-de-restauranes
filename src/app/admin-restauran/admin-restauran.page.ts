@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
-import { UsuarioRestaurante } from '../registro-restauran/registro-restauran.page';
+import { UsuarioRestaurante, Mesa } from '../registro-restauran/registro-restauran.page';
 import { MesasEditPage } from '../mesas-edit/mesas-edit.page';
-import { LoginRestauranPage } from '../login-restauran/login-restauran.page'; // Importar la página de login
 
 @Component({
   selector: 'app-admin-restauran',
@@ -11,7 +10,7 @@ import { LoginRestauranPage } from '../login-restauran/login-restauran.page'; //
   styleUrls: ['./admin-restauran.page.scss'],
 })
 export class AdminRestauranPage {
-  usuario: UsuarioRestaurante | null = null; // Datos del restaurante
+  usuario: UsuarioRestaurante | null = null;
 
   constructor(
     private navCtrl: NavController,
@@ -30,53 +29,46 @@ export class AdminRestauranPage {
   }
 
   async salir() {
-    await this.storage.remove('usuario'); // Eliminar los datos de usuario almacenados
-    this.navCtrl.navigateRoot('/login-restauran'); // Redirigir al usuario a la página de login
+    await this.storage.remove('usuario');
+    this.navCtrl.navigateRoot('/login-restauran');
   }
 
   async editarMesa(index: number) {
     const modal = await this.modalCtrl.create({
       component: MesasEditPage,
       componentProps: {
-        mesa: this.usuario ? this.usuario.mesas[index] : null // Usa el operador de opción segura para acceder a mesas
+        mesa: this.usuario?.mesas ? this.usuario.mesas[index] : null
       }
     });
 
     modal.onDidDismiss().then((data) => {
       const mesaEditada = data?.data;
-      if (mesaEditada && this.usuario) {
-        this.usuario.mesas[index] = mesaEditada; // Usa el operador de opción segura para actualizar la mesa
-        this.guardarDatosUsuario(); // Guarda los cambios en el almacenamiento
+      if (mesaEditada && this.usuario && this.usuario.mesas) {
+        this.usuario.mesas[index] = mesaEditada;
+        this.guardarDatosUsuario();
       }
     });
 
     return await modal.present();
   }
 
-  async eliminarMesa(index: number) {
-    if (this.usuario) {
-      this.usuario.mesas.splice(index, 1);
-      this.guardarDatosUsuario(); // Guarda los cambios en el almacenamiento
-    }
-  }
 
-  async agregarMesa() {
-    if (this.usuario) {
-      const numeroMesa = this.usuario.mesas.length + 1;
-      this.usuario.mesas.push({
-        nombre: `Mesa ${numeroMesa}`,
-        sillas: 4,
-        reservada: 'disponible'
-      });
-      this.guardarDatosUsuario(); // Guarda los cambios en el almacenamiento
-    }
-  }
+  
 
   async guardarDatosUsuario() {
     await this.storage.set('usuario', this.usuario);
   }
 
-  async presentToast(message: string, color: string = 'danger') {
+  async actualizarReservaEnInterfaz(mesa: Mesa, index: number) {
+    // Actualiza la reserva en la interfaz después de una cancelación
+    if (this.usuario && this.usuario.mesas) {
+      this.usuario.mesas[index] = mesa;
+      await this.guardarDatosUsuario();
+      this.mostrarToast('Reserva cancelada correctamente.');
+    }
+  }
+
+  async mostrarToast(message: string, color: string = 'danger') {
     const toast = await this.toastCtrl.create({
       message: message,
       duration: 2000,

@@ -18,9 +18,15 @@ export class MesasEditPage {
   }
 
   async guardarCambios() {
-    // Aquí puedes implementar la lógica para guardar los cambios en la mesa
+    // Implementa aquí la lógica para guardar los cambios en la mesa
     this.mostrarToast('Cambios guardados correctamente.', 'success');
     this.modalCtrl.dismiss(this.mesa);
+  }
+
+  reservarMesa() {
+    // Cambia el estado de la reserva de la mesa a 'reservada'
+    this.mesa.reservada = 'reservada';
+    // Agrega la lógica para establecer la fecha y hora de reserva si es necesario
   }
 
   cerrarModal() {

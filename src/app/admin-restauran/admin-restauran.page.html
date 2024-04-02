@@ -20,11 +20,12 @@
           <ion-label>{{ mesa.reservada === 'reservada' ? 'Reservada' : 'Disponible' }}</ion-label>
           <ion-label *ngIf="mesa.reservada === 'reservada'">Fecha de Reserva: {{ mesa.fechaReserva }}</ion-label>
           <ion-label *ngIf="mesa.reservada === 'reservada'">Hora de Reserva: {{ mesa.horaReserva }}</ion-label>
+          <ion-label *ngIf="mesa.reservada === 'reservada'">Reservado por: {{ mesa.nombreReserva }}</ion-label>
           <ion-button slot="end" (click)="editarMesa(i)">Editar</ion-button>
-          <ion-button slot="end" (click)="eliminarMesa(i)">Eliminar</ion-button>
+       
+          <ion-button slot="end" *ngIf="mesa.reservada === 'reservada'" (click)="actualizarReservaEnInterfaz(mesa, i)">Cancelar</ion-button>
         </ion-item>
       </ion-list>
-      <ion-button expand="full" (click)="agregarMesa()">Agregar Mesa</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>
