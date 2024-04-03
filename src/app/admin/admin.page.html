@@ -11,7 +11,7 @@
 
   <ion-list *ngIf="usuariosCliente.length > 0">
     <ion-list-header>
-      Usuarios Cliente
+      <h1>Cuentas de clientes</h1>
     </ion-list-header>
     <ion-item *ngFor="let usuario of usuariosCliente">
       <ion-label>Nombre: {{ usuario.nombre }}</ion-label>
@@ -30,7 +30,7 @@
 
   <ion-list *ngIf="usuariosRestaurante.length > 0">
     <ion-list-header>
-      Usuarios Restaurante
+     <h1> Cuentas de restaurantes</h1>
     </ion-list-header>
     <ion-item class="usuario-item" *ngFor="let usuario of usuariosRestaurante">
       <ion-label>Nombre: {{ usuario.nombre }}</ion-label>

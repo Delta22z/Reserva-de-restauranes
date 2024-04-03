@@ -7,19 +7,22 @@
 <ion-content>
   <div class="login-cliente">
     <div class="login-form">
-      <ion-item>
+      <ion-item lines="full">
         <ion-label position="floating">Correo</ion-label>
         <ion-input type="email" [(ngModel)]="loginData.email"></ion-input>
-      </ion-item>
+ 
       
-      <ion-item>
+      </ion-item>
+      <ion-item lines="full">
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input type="password" [(ngModel)]="loginData.password"></ion-input>
-      </ion-item>
       
-      <ion-button expand="full" (click)="login()">Iniciar sesión</ion-button>
-      <ion-button expand="full" color="medium" routerLink="/registro-cliente">Registrarse</ion-button>
-      <ion-button expand="full" color="medium" routerLink="/login-restauran">Login Restaurante</ion-button>
+      </ion-item>
+      <ion-item>
+      <ion-button expand="full" class="ini_se"(click)="login()">Iniciar sesión</ion-button>
+      <ion-button expand="full" class="regis" routerLink="/registro-cliente">Registrarse</ion-button>
+      <ion-button expand="full" class="restau"routerLink="/login-restauran">¿Eres restaurantero? click aqui</ion-button>   
+      </ion-item>
     </div>
   </div>
 </ion-content>
