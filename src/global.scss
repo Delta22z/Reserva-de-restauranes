@@ -24,3 +24,93 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+/* src/global.css (o styles.css) */
+
+/* Estilo para el fondo del ion-content */
+ion-content {
+    --background: #727272; /* Color de fondo */
+  }
+  
+  /* Estilos para los titulares */
+  ion-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+  
+  /* Estilos para los ion-cards */
+  ion-card {
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilos para los ion-item */
+  ion-item {
+    --padding-start: 16px;
+    --padding-end: 16px;
+  }
+  
+  /* Estilos para las ion-buttons */
+  ion-button {
+    --background: #ffca38;
+    --color: #000000;
+    --border-radius: 5px;
+    font-weight: bold;
+    margin-top: 8px;
+  }
+  .login-cliente {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .login-form {
+    max-width: 400px;
+    width: 90%; /* Ancho del formulario */
+    margin: 0 auto; /* Centrar horizontalmente */
+    padding: 20px;
+    background-color: #000000; /* Color de fondo del formulario */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .center-text {
+    text-align: center;
+  }
+  
+  ion-input {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+  }
+  
+  ion-button {
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  
+  /* Estilos específicos para los botones de acción */
+  .ini_se {
+    --background: #378fee; /* Color azul para iniciar sesión */
+    color: #fff;
+  }
+  
+  .regis {
+    --background: #28a745; /* Color verde para registrarse */
+    color: #fff;
+  }
+  
+  .restau {
+    --background: #ffc107; /* Color amarillo para el login de restaurantes */
+    color: #fff;
+  }
+  
+  /* Estilos para los botones al hacer hover */
+  ion-button:hover {
+    opacity: 0.8; /* Reducir opacidad al pasar el cursor */
+  }
+    

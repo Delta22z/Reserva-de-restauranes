@@ -8,21 +8,18 @@
   <div class="login-cliente">
     <div class="login-form">
       <ion-item lines="full">
-        <ion-label position="floating"><p  class="center-text">Correo</p></ion-label>
+        <ion-label position="floating" class="center-text">Correo</ion-label>
         <ion-input type="email" [(ngModel)]="loginData.email"></ion-input>
- 
-      
       </ion-item>
+      
       <ion-item lines="full">
-        <ion-label position="floating"><p  class="center-text">Contraseña</p> </ion-label>
+        <ion-label position="floating" class="center-text">Contraseña</ion-label>
         <ion-input type="password" [(ngModel)]="loginData.password"></ion-input>
+      </ion-item>
       
-      </ion-item>
-      <ion-item>
-      <ion-button expand="full" class="ini_se"(click)="login()">Iniciar sesión</ion-button>
+      <ion-button expand="full" class="ini_se" (click)="login()">Iniciar sesión</ion-button>
       <ion-button expand="full" class="regis" routerLink="/registro-cliente">Registrarse</ion-button>
-      <ion-button expand="full" class="restau"routerLink="/login-restauran">Login para restaurantes</ion-button>   
-      </ion-item>
+      <ion-button expand="full" class="restau" routerLink="/login-restauran">Login para restaurantes</ion-button>
     </div>
   </div>
 </ion-content>
